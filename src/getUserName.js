@@ -1,4 +1,4 @@
-const sayHi = () => {
+const getUserName = () => {
   const args = process.argv;
   let name;
   for (let i = 0; i < args.length; i++) {
@@ -7,7 +7,7 @@ const sayHi = () => {
       i = args.length;
     }
   }
-  return `Welcome to the File Manager, ${name || 'Anonymous'}!`;
+  return name || 'Anonymous';
 };
 
-export default sayHi;
+export default getUserName;
