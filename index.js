@@ -5,6 +5,7 @@ import path from 'node:path';
 
 import getUserName from './src/getUserName.js';
 import getPathToUpFolder from './src/getPathToUpFolder.js';
+import goToFolder from './src/goToFolder.js';
 
 
 const userName = getUserName();
@@ -18,7 +19,8 @@ console.log(`You are currently in ${currentWorkDirectory}`);
 rl.on('close', () => { console.log(`\n Thank you for using File Manager, ${userName}, goodbye! \n`); });
 
 rl.on('line', (input) => {
-  const inputArray = input.split(' ');
+  let inputArray = input.trim().split(' ');
+  inputArray = inputArray.filter(i => i !== '');
   if (inputArray.length === 1) {
     switch (inputArray[0]) {
       case '.exit':
@@ -40,7 +42,9 @@ rl.on('line', (input) => {
   } else if (inputArray.length === 2) {
     switch (inputArray[0]) {
       case 'cd':
-        console.log('cd');
+        try {
+          currentWorkDirectory = goToFolder(currentWorkDirectory, inputArray[1]);
+        } catch { console.log('Operation failed'); }
         break;
       case 'cat':
         console.log('cat');
