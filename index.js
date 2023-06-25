@@ -1,14 +1,19 @@
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 import { homedir } from 'node:os';
+import path from 'node:path';
 
 import getUserName from './src/getUserName.js';
+import getPathToUpFolder from './src/getPathToUpFolder.js';
+
 
 const userName = getUserName();
 const rl = readline.createInterface({ input, output });
 process.chdir(homedir());
+let currentWorkDirectory = process.cwd();
 console.log(`Welcome to the File Manager, ${userName}! \n`);
-console.log(`You are currently in ${process.cwd()}`);
+console.log(`You are currently in ${currentWorkDirectory}`);
+
 
 rl.on('close', () => { console.log(`\n Thank you for using File Manager, ${userName}, goodbye! \n`); });
 
@@ -20,7 +25,8 @@ rl.on('line', (input) => {
         rl.close();
         break;
       case 'up':
-        console.log('up');
+        process.chdir(getPathToUpFolder(currentWorkDirectory));
+        currentWorkDirectory = process.cwd();
         break;
       case 'ls':
         console.log('ls');
@@ -29,7 +35,7 @@ rl.on('line', (input) => {
         console.log('Invalid input');
     }
     if (input !== '.exit') {
-      console.log(`\n You are currently in ${process.cwd()} \n`);
+      console.log(`\n You are currently in ${currentWorkDirectory} \n`);
     };
   } else if (inputArray.length === 2) {
     switch (inputArray[0]) {
@@ -54,7 +60,7 @@ rl.on('line', (input) => {
       default:
         console.log('Invalid input');
     }
-    console.log(`\n You are currently in ${process.cwd()} \n`);
+    console.log(`\n You are currently in ${currentWorkDirectory} \n`);
   } else if (inputArray.length === 3) {
     switch (inputArray[0]) {
       case 'rn':
@@ -75,7 +81,7 @@ rl.on('line', (input) => {
       default:
         console.log('Invalid input');
     }
-    console.log(`\n You are currently in ${process.cwd()} \n`);
+    console.log(`\n You are currently in ${currentWorkDirectory} \n`);
   }
 
 });
