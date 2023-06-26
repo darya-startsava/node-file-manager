@@ -106,7 +106,12 @@ rl.on('line', async (input) => {
         }
         break;
       case 'mv':
-        console.log('mv');
+        try {
+          await copyFile(inputArray[1], inputArray[2]);
+          await deleteFile(inputArray[1]);
+        } catch {
+          console.log('Operation failed');
+        }
         break;
       case 'compress':
         console.log('compress');
