@@ -7,6 +7,7 @@ import getUserName from './src/getUserName.js';
 import getPathToUpFolder from './src/getPathToUpFolder.js';
 import goToFolder from './src/goToFolder.js';
 import showListTable from './src/showListTable.js';
+import readAndPrintFile from './src/readAndPrintFile.js';
 
 
 const userName = getUserName();
@@ -50,8 +51,10 @@ rl.on('line', async (input) => {
           currentWorkDirectory = goToFolder(currentWorkDirectory, inputArray[1]);
         } catch { console.log('Operation failed'); }
         break;
-      case 'cat':
-        console.log('cat');
+      case 'cat':;
+        try {
+          await readAndPrintFile(inputArray[1]);
+        } catch { console.log('Operation failed'); }
         break;
       case 'add':
         console.log('add');
