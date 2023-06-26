@@ -8,6 +8,7 @@ import getPathToUpFolder from './src/getPathToUpFolder.js';
 import goToFolder from './src/goToFolder.js';
 import showListTable from './src/showListTable.js';
 import readAndPrintFile from './src/readAndPrintFile.js';
+import createEmptyFile from './src/createEmptyFile.js';
 
 
 const userName = getUserName();
@@ -49,15 +50,23 @@ rl.on('line', async (input) => {
       case 'cd':
         try {
           currentWorkDirectory = goToFolder(currentWorkDirectory, inputArray[1]);
-        } catch { console.log('Operation failed'); }
+        } catch {
+          console.log('Operation failed');
+        }
         break;
-      case 'cat':;
+      case 'cat': ;
         try {
           await readAndPrintFile(inputArray[1]);
-        } catch { console.log('Operation failed'); }
+        } catch {
+          console.log('Operation failed');
+        }
         break;
       case 'add':
-        console.log('add');
+        try {
+          await createEmptyFile(currentWorkDirectory, inputArray[1]);
+        } catch {
+          console.log('Operation failed');
+        }
         break;
       case 'rm':
         console.log('rm');
