@@ -4,7 +4,6 @@ import path from 'node:path';
 const createEmptyFile = async (currentWorkDirectory, newFileName) => {
 
   const pathParseResults = path.parse(newFileName);
-  console.log('pathParseResults', pathParseResults)
   if (!pathParseResults.ext) {
     throw new Error();
   }

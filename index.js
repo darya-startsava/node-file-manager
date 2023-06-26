@@ -10,6 +10,8 @@ import showListTable from './src/showListTable.js';
 import readAndPrintFile from './src/readAndPrintFile.js';
 import createEmptyFile from './src/createEmptyFile.js';
 import renameFile from './src/renameFile.js';
+import copyFile from './src/copyFile.js';
+
 
 
 const userName = getUserName();
@@ -92,7 +94,11 @@ rl.on('line', async (input) => {
         }
         break;
       case 'cp':
-        console.log('cp');
+        try {
+          await copyFile(inputArray[1], inputArray[2]);
+        } catch {
+          console.log('Operation failed');
+        }
         break;
       case 'mv':
         console.log('mv');
