@@ -14,6 +14,7 @@ import copyFile from './src/copyFile.js';
 import deleteFile from './deleteFile.js';
 import calculateHash from './src/calculateHash.js';
 import compress from './src/compress.js';
+import decompress from './src/decompress.js';
 
 
 
@@ -127,7 +128,11 @@ rl.on('line', async (input) => {
         }
         break;
       case 'decompress':
-        console.log('decompress');
+        try {
+          await decompress(inputArray[1], inputArray[2]);
+        } catch {
+          console.log('Operation failed');
+        }
         break;
       default:
         console.log('Invalid input');
