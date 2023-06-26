@@ -9,6 +9,7 @@ import goToFolder from './src/goToFolder.js';
 import showListTable from './src/showListTable.js';
 import readAndPrintFile from './src/readAndPrintFile.js';
 import createEmptyFile from './src/createEmptyFile.js';
+import renameFile from './src/renameFile.js';
 
 
 const userName = getUserName();
@@ -84,7 +85,11 @@ rl.on('line', async (input) => {
   } else if (inputArray.length === 3) {
     switch (inputArray[0]) {
       case 'rn':
-        console.log('rn');
+        try {
+          await renameFile(inputArray[1], inputArray[2]);
+        } catch {
+          console.log('Operation failed');
+        }
         break;
       case 'cp':
         console.log('cp');
