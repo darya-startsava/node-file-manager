@@ -12,6 +12,7 @@ import createEmptyFile from './src/createEmptyFile.js';
 import renameFile from './src/renameFile.js';
 import copyFile from './src/copyFile.js';
 import deleteFile from './deleteFile.js';
+import calculateHash from './src/calculateHash.js';
 
 
 
@@ -83,7 +84,11 @@ rl.on('line', async (input) => {
         console.log('os');
         break;
       case 'hash':
-        console.log('hash');
+        try {
+          await calculateHash(inputArray[1]);
+        } catch {
+          console.log('Operation failed');
+        }
         break;
       default:
         console.log('Invalid input');
