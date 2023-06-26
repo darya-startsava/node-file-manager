@@ -24,6 +24,14 @@ const copyFile = async (filePath, directoryPath) => {
     throw new Error();
   }
 
+  const isFilePath = await fsPromises.access(filePath, fsPromises.constants.F_OK)
+    .then(() => true)
+    .catch(() => false);
+  if (!isFilePath) {
+    throw new Error();
+  }
+
+
   const readable = createReadStream(filePath);
   const writable = createWriteStream(newFilePath);
   await pipeline(readable, writable);

@@ -11,6 +11,7 @@ import readAndPrintFile from './src/readAndPrintFile.js';
 import createEmptyFile from './src/createEmptyFile.js';
 import renameFile from './src/renameFile.js';
 import copyFile from './src/copyFile.js';
+import deleteFile from './deleteFile.js';
 
 
 
@@ -72,7 +73,11 @@ rl.on('line', async (input) => {
         }
         break;
       case 'rm':
-        console.log('rm');
+        try {
+          await deleteFile(inputArray[1]);
+        } catch {
+          console.log('Operation failed');
+        }
         break;
       case 'os':
         console.log('os');
