@@ -6,6 +6,7 @@ import path from 'node:path';
 import getUserName from './src/getUserName.js';
 import getPathToUpFolder from './src/getPathToUpFolder.js';
 import goToFolder from './src/goToFolder.js';
+import showListTable from './src/showListTable.js';
 
 
 const userName = getUserName();
@@ -18,7 +19,7 @@ console.log(`You are currently in ${currentWorkDirectory}`);
 
 rl.on('close', () => { console.log(`\n Thank you for using File Manager, ${userName}, goodbye! \n`); });
 
-rl.on('line', (input) => {
+rl.on('line', async (input) => {
   let inputArray = input.trim().split(' ');
   inputArray = inputArray.filter(i => i !== '');
   if (inputArray.length === 1) {
@@ -31,7 +32,10 @@ rl.on('line', (input) => {
         currentWorkDirectory = process.cwd();
         break;
       case 'ls':
-        console.log('ls');
+        try {
+          console.log('currentWorkDirectory', currentWorkDirectory);
+          await showListTable(currentWorkDirectory);
+        } catch { console.log('Operation failed'); }
         break;
       default:
         console.log('Invalid input');
