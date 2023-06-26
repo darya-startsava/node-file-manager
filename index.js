@@ -1,6 +1,6 @@
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
-import { homedir } from 'node:os';
+import { homedir, EOL, userInfo } from 'node:os';
 import path from 'node:path';
 
 import getUserName from './src/getUserName.js';
@@ -15,6 +15,7 @@ import deleteFile from './deleteFile.js';
 import calculateHash from './src/calculateHash.js';
 import compress from './src/compress.js';
 import decompress from './src/decompress.js';
+import showCpus from './src/showCpus.js';
 
 
 
@@ -83,7 +84,25 @@ rl.on('line', async (input) => {
         }
         break;
       case 'os':
-        console.log('os');
+        switch (inputArray[1]) {
+          case '--EOL':
+            console.log('EOL:', EOL);
+            break;
+          case '--cpus':
+            showCpus();
+            break;
+          case '--homedir':
+            console.log(homedir());
+            break;
+          case '--username':
+            console.log(userInfo().username);
+            break;
+          case '--architecture':
+            console.log(process.arch);
+            break;
+          default:
+            console.log('Invalid input');
+        }
         break;
       case 'hash':
         try {
